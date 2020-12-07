@@ -21,7 +21,7 @@ class Tender(models.Model):
     date_published = models.DateTimeField(auto_now_add=True, verbose_name="date_published")
     date_updated = models.DateTimeField(auto_now=True, verbose_name="date_updated")
     slug = models.SlugField(blank=True, unique=True)
-
+    extension = 'pdf'
     status = models.BooleanField("Is Open", default=True)
 
     @property
@@ -52,6 +52,11 @@ class TenderLot(models.Model):
     description = models.TextField(null=False, blank=False)
     price = models.IntegerField(null=True, blank=True)
     unit = models.CharField(max_length=50, null=True, blank=True)
+    # status = models.BooleanField("Is Open", default=True, blank=True, null=True)
+    # number = models.FloatField(blank=True, null=True)
+    number = '5'
+    status = 'open'
+
 
     def __str__(self):
         return self.name
@@ -70,4 +75,4 @@ class CompanyModel(models.Model):
     # company_slug = models.SlugField(blank=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)

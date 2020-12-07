@@ -5,21 +5,22 @@ class TenderCompaniesSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=True)
     class Meta:
         model = CompanyModel
-        fields = ['name','id']
+        fields = ['name_ru', 'name_en', 'name_uz',
+        'id']
 
 class CompanyRequisitesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CompanyModel
         fields = [
-            'name',
+            'name_ru', 'name_en', 'name_uz',
             'inn',
-            'address',
+            'address_ru', 'address_en', 'address_uz',
             'phone',
             'clientBillNumber',
-            'deliveryTerms',
-            'deadline',
-            'paymentTerms',
+            'deliveryTerms_ru', 'deliveryTerms_en', 'deliveryTerms_uz',
+            'deadline_ru', 'deadline_en', 'deadline_uz',
+            'paymentTerms_ru', 'paymentTerms_en', 'paymentTerms_uz',
             'date_published',
             'date_ends',
         ]
@@ -34,7 +35,9 @@ class TenderLotSerializer(serializers.ModelSerializer):
                   'description_ru', 'description_en', 'description_uz',
                   'price',
                   'id',
-                  'unit'
+                  'unit_ru', 'unit_en', 'unit_uz',
+                  'number',
+                  'status',
                   ]
 
 
@@ -53,6 +56,7 @@ class TenderSerializer(serializers.ModelSerializer):
             'status',
             'filesize',
             'slug',
+            'extension',
         ]
 
 class TenderListSerializer(serializers.ModelSerializer):
