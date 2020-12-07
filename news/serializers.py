@@ -23,3 +23,13 @@ class UngNewsListSerializer(serializers.ModelSerializer):
             'date_updated', 
             'slug',
             ]
+
+class SliderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UngNewsModel
+        fields = [
+            'news_title_ru', 'news_title_en', 'news_title_uz', 
+            'image', 
+            'slug',
+            'status',
+            ]

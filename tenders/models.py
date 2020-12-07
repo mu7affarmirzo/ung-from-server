@@ -1,3 +1,4 @@
+import os
 from django.db import models
 
 from django.db.models.signals import pre_save, post_delete
@@ -21,8 +22,12 @@ class Tender(models.Model):
     date_published = models.DateTimeField(auto_now_add=True, verbose_name="date_published")
     date_updated = models.DateTimeField(auto_now=True, verbose_name="date_updated")
     slug = models.SlugField(blank=True, unique=True)
-    extension = 'pdf'
+
     status = models.BooleanField("Is Open", default=True)
+
+    def extension(self):
+        name, extension = os.path.splitext(self.file.name)
+        return extension
 
     @property
     def filesize(self):
@@ -72,7 +77,7 @@ class CompanyModel(models.Model):
     paymentTerms = models.CharField(max_length=50, null=True, blank=True)
     date_published = models.DateTimeField(auto_now_add=True, verbose_name="date_published")
     date_ends = models.DateTimeField(auto_now=True, verbose_name="date_ending")
-    # company_slug = models.SlugField(blank=True)
+    # company_slug = models.SlugField(blank=True, unique=True)
 
     def __str__(self):
         return str(self.name)

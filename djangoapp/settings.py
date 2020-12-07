@@ -17,7 +17,6 @@ INSTALLED_APPS = [
     'modeltranslation',
     'rest_framework',
     'ckeditor',
-    # 'django_filters',
     # 'uzbplaces',
     'whitenoise.runserver_nostatic',
     'django.contrib.admin',
@@ -31,6 +30,7 @@ INSTALLED_APPS = [
     'tenders.apps.TendersConfig',
     'docs_files.apps.DocsFilesConfig',
     # 'ungfiles.apps.UngfilesConfig',
+    # 'django_filters',
 ]
 
 
