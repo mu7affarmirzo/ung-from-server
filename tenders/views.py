@@ -8,12 +8,13 @@ from rest_framework.generics import ListAPIView
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 
-from tenders.models import Tender, TenderLot, CompanyModel
+from tenders.models import Tender, TenderLot, CompanyModel, FileTender
 from tenders.serializers import (
     TenderSerializer,
     TenderLotSerializer,
     TenderCompaniesSerializer,
     TenderListSerializer,
+    FileInfoSerializer,
     # CoTenSerializer,
     # CompaniesWithTenders
     )
@@ -41,7 +42,6 @@ class ApiTendersListView(ListAPIView):
     # pagination_class = PageNumberPagination
 
 class CApiTendersListView(ListAPIView):
-    # queryset = Tender.objects.all()
     serializer_class = TenderListSerializer
 
     def get_queryset(self):
@@ -51,28 +51,11 @@ class CApiTendersListView(ListAPIView):
 class ApiTenderByListView(ListAPIView):
     queryset = Tender.objects.all()
     serializer_class = TenderListSerializer
+    pagination_class = PageNumberPagination
 
-# class CompaniesWithTendersListViewAPI(ListAPIView):
-#     queryset = CompanyModel.objects.all()
-#     serializer_class = CompaniesWithTenders
-
-# class ApiTenderByListView(viewsets.ModelViewSet):
-#     # queryset = Tender.objects.all()
-#     serializer_class = TenderListSerializer(Tender, many = True)
-#     def get_queryset(self):
-#         company_tenders = Tender.objects.all()
-#         return company_tenders
-
-#     def retriever(self, request, *args, **kwargs):
-#         params = kwargs
-#         params_list = params['pk'].split('-')
-#         tenders = Tender.objects.filter(
-#             company_ten = params_list[0], car_model = params_list[1]
-#         )
-#         serializer = TenderListSerializer(tenders, many = True)
-#         return Response(serializer.data)
-    
-
+class FileInfoListViewAPI(ListAPIView):
+    queryset = FileTender.objects.all()
+    serializer_class = FileInfoSerializer
 
 @api_view(['GET', ])
 def api_detail_tenders_view(request, slug):
@@ -85,15 +68,3 @@ def api_detail_tenders_view(request, slug):
     if request.method == "GET":
         serializer = TenderSerializer(news_tender)
         return Response(serializer.data)
-
-# @api_view(['GET', ])
-# def api_companies_tenders_view(request, id):
-#     try:
-#         company_tender = CompanyModel.objects.get(id=id)
-
-#     except ObjectDoesNotExist:
-#         return Response(status=status.HTTP_404_NOT_FOUND)
-
-#     if request.method == "GET":
-#         serializer = CoTenSerializer(company_tender)
-#         return Response(serializer.data)

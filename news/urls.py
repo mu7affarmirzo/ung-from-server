@@ -3,6 +3,7 @@ from django.conf.urls import url, include
 from rest_framework.routers import DefaultRouter
 from news.views import (
     api_detail_news_view, ApiNewsListView, status_detail_news_view,
+    SApiNewsListView,
     # SliderViewset
     )
 
@@ -15,6 +16,7 @@ app_name = 'news'
 urlpatterns = [
     path('<slug>/', api_detail_news_view, name='detail'),
     path('list', ApiNewsListView.as_view(), name='list'),
+    path('list/slider/', SApiNewsListView.as_view(), name='slider_list'),
     # path('slider/<status>', status_detail_news_view, name='sliders'),
     # url('', include(router.urls)),
     # path('slider', SliderViewset.as_view(), name='slider'),

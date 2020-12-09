@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Tender, TenderLot, CompanyModel
+from .models import Tender, TenderLot, CompanyModel, FileTender
 
 class TenderCompaniesSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=True)
@@ -40,22 +40,35 @@ class TenderLotSerializer(serializers.ModelSerializer):
                   'status',
                   ]
 
+class FileInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FileTender
+        fields = [
+            'filename_ru', 'filename_en', 'filename_uz',
+            'fileurl_ru', 'fileurl_en', 'fileurl_uz',
+            'description_ru', 'description_en', 'description_uz',
+            'extension_ru', 'extension_en', 'extension_uz',
+            'filesize_ru', 'filesize_en', 'filesize_uz',
+        ]
+
 class TenderSerializer(serializers.ModelSerializer):
     tenderlots = TenderLotSerializer(many=True)
     company = CompanyRequisitesSerializer()
+    fileInfo = FileInfoSerializer()
     class Meta:
         model = Tender
         fields = [
             'company',
             'title_ru', 'title_en', 'title_uz',
             'asosiy_talablar_ru', 'asosiy_talablar_en', 'asosiy_talablar_uz',
-            'file',
+            # 'file',
+            'fileInfo',
             'date_published',
             'tenderlots',
             'status',
-            'filesize',
+            # 'filesize',
             'slug',
-            'extension',
+            # 'extension',
         ]
 
 class TenderListSerializer(serializers.ModelSerializer):
@@ -66,10 +79,10 @@ class TenderListSerializer(serializers.ModelSerializer):
             'company',
             'title_ru', 'title_en', 'title_uz',
             'asosiy_talablar_ru', 'asosiy_talablar_en', 'asosiy_talablar_uz',
-            'file',
+            # 'file',
             'date_published',
             'status',
-            'filesize',
+            # 'filesize',
             'slug',
         ]
 

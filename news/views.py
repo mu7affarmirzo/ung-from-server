@@ -39,6 +39,14 @@ class ApiNewsListView(ListAPIView):
     serializer_class = UngNewsSerializer
     pagination_class = PageNumberPagination
 
+class SApiNewsListView(ListAPIView):
+    serializer_class = UngNewsSerializer
+
+    def get_queryset(self):
+        slug = self.kwargs['pk']
+        return UngNewsModel.objects.filter(slider_status=slug)
+
+
 # class StatusApiNewsListView(ListAPIView):
 #     # queryset = UngNewsModel.objects.all()
 #     serializer_class = UngNewsSerializer

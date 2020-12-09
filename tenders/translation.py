@@ -1,5 +1,5 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import TenderLot, Tender, CompanyModel
+from .models import TenderLot, Tender, CompanyModel, FileTender
 
 @register(TenderLot)
 class TenderLotTranslationOptions(TranslationOptions):
@@ -13,3 +13,7 @@ class TenderTranslationOptions(TranslationOptions):
 @register(CompanyModel)
 class CompanyTranslationOptions(TranslationOptions):
     fields = ('name', 'address', 'deliveryTerms', 'deadline', 'paymentTerms')
+
+@register(FileTender)
+class TenderTranslationOptions(TranslationOptions):
+    fields = ('filename', 'description')

@@ -7,7 +7,19 @@ from .models import (
     Tender,
     TenderLot,
     CompanyModel,
+    FileTender,
+    # FileInfo,
 )
+
+class FilesAdmin(TranslationAdmin):
+    pass
+admin.site.register(FileTender, FilesAdmin)
+
+
+class CompaniesAdmin(TranslationAdmin):
+    pass
+admin.site.register(CompanyModel, CompaniesAdmin)
+
 
 class TenderAdminForm(forms.ModelForm):
 
@@ -28,5 +40,3 @@ class TenderAdmin(admin.ModelAdmin):
 @admin.register(TenderLot)
 class TenderLotAdmin(admin.ModelAdmin):
     pass
-
-admin.site.register(CompanyModel)
