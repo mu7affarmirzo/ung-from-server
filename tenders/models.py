@@ -21,7 +21,6 @@ def location_fo_upload(instance, filename):
 
 class FileTender(models.Model):
     filename = models.CharField(max_length=150, blank=True, null=True)
-    # fileurl = models.FileField(upload_to=location_fo_upload, null=False, blank=False)
     fileurl_ru = models.FileField(upload_to=location_fo_upload, null=False, blank=False)
     fileurl_en = models.FileField(upload_to=location_fo_upload, null=False, blank=False)
     fileurl_uz = models.FileField(upload_to=location_fo_upload, null=False, blank=False)
@@ -90,34 +89,12 @@ class Tender(models.Model):
     company = models.ForeignKey('CompanyModel', related_name='company_tenders', null=False, blank=False, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, null=False, blank=False)
     asosiy_talablar = RichTextField(blank=True, null=True)
-    # file = models.FileField(upload_to=upload_location, null=False, blank=False)
     fileInfo = models.ForeignKey(FileTender, related_name='file_info', null=False, blank=False, on_delete=models.CASCADE)
     date_published = models.DateTimeField(auto_now_add=True, verbose_name="date_published")
     date_updated = models.DateTimeField(auto_now=True, verbose_name="date_updated")
     slug = models.SlugField(blank=True, unique=True)
     
     status = models.BooleanField("Is Open", default=True)
-
-#http://webdev.ung.uz/media/tender/files/This_is_some_text_for_testing_q1dgHiP.docx
-#/media/tender/files/headline_shutterstock_243762007_taqmbuv.jpg
-    # def extension(self):
-    #     name, extension = os.path.splitext(self.file.name)
-    #     return extension
-
-    # @property
-    # def filesize(self):
-    #     x = self.file.size
-    #     y = 512000
-    #     if x < y:
-    #         value = round(x / 1000, 2)
-    #         ext = ' kb'
-    #     elif x < y * 1000:
-    #         value = round(x / 1000000, 2)
-    #         ext = ' Mb'
-    #     else:
-    #         value = round(x / 1000000000, 2)
-    #         ext = ' Gb'
-    #     return str(value) + ext
 
     def __str__(self):
         return self.title
@@ -132,11 +109,8 @@ class TenderLot(models.Model):
     description = models.TextField(null=False, blank=False)
     price = models.IntegerField(null=True, blank=True)
     unit = models.CharField(max_length=50, null=True, blank=True)
-    # status = models.BooleanField("Is Open", default=True, blank=True, null=True)
-    # number = models.FloatField(blank=True, null=True)
-    number = '5'
+    number = models.CharField(max_length=50, blank=True, null=True)
     status = 'open'
-
 
     def __str__(self):
         return self.name
@@ -152,7 +126,6 @@ class CompanyModel(models.Model):
     paymentTerms = models.CharField(max_length=50, null=True, blank=True)
     date_published = models.DateTimeField(auto_now_add=True, verbose_name="date_published")
     date_ends = models.DateTimeField(auto_now=True, verbose_name="date_ending")
-    # company_slug = models.SlugField(blank=True, unique=True)
 
     def __str__(self):
         return str(self.name)

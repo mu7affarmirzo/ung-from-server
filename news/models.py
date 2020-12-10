@@ -30,6 +30,13 @@ class UngNewsModel(models.Model):
     # author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     status = models.BooleanField(verbose_name="slider")
 
+    def slid(self):
+        if self.status == True:
+            return int("1")
+        else:
+            return int("0")
+
+
     def __str__(self):
         return self.news_title
 

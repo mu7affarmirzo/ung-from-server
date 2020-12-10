@@ -12,6 +12,7 @@ class UngNewsSerializer(serializers.ModelSerializer):
             'date_updated', 
             'slug',
             'status',
+            'slid',
             ]
 
 class UngNewsListSerializer(serializers.ModelSerializer):
@@ -32,4 +33,5 @@ class SliderSerializer(serializers.ModelSerializer):
             'image', 
             'slug',
             'status',
+            'slid',
             ]
