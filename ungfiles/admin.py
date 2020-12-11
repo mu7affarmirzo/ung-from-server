@@ -1,6 +1,7 @@
-# from django.contrib import admin
-
-# from .models import Category, UploadedFile, SubCategories
+from django.contrib import admin
+from modeltranslation.admin import TranslationAdmin
+from .models import Category, SubCategories, Documents
+# TypeFiles, AllFiles
 
 # @admin.register(Category)
 # class CategoryAdmin(admin.ModelAdmin):
@@ -10,6 +11,19 @@
 # class SubCategoriesAdmin(admin.ModelAdmin):
 #     pass
 
-# @admin.register(UploadedFile)
-# class OpenDataAdmin(admin.ModelAdmin):
+# @admin.register(Documents)
+# class DocmentsAdmin(admin.ModelAdmin):
 #     pass
+
+class CategoryAdmin(TranslationAdmin):
+    pass
+admin.site.register(Category, CategoryAdmin)
+
+class DocumentsAdmin(TranslationAdmin):
+    pass
+admin.site.register(Documents, DocumentsAdmin)
+
+
+class SubCategoriesAdmin(TranslationAdmin):
+    pass
+admin.site.register(SubCategories, SubCategoriesAdmin)

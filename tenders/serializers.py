@@ -86,23 +86,6 @@ class TenderListSerializer(serializers.ModelSerializer):
             'slug',
         ]
 
-
-# class FroCompTenderListSerializer(serializers.ModelSerializer):
-#     tenderlots = TenderLotSerializer(many=True)
-#     class Meta:
-#         model = Tender
-#         fields = [
-#             'title_ru', 'title_en', 'title_uz',
-#             'asosiy_talablar_ru', 'asosiy_talablar_en', 'asosiy_talablar_uz',
-#             'file',
-#             'date_published',
-#             'tenderlots',
-#             'status',
-#             'filesize',
-#             'slug',
-#             'extension',
-#         ]
-
 class CoTenSerializer(serializers.ModelSerializer):
     tenders = TenderListSerializer(many=True)
     class Meta:
@@ -112,26 +95,3 @@ class CoTenSerializer(serializers.ModelSerializer):
             'id',
             'tenders',
         ]
-
-# class TendersInsideCompanies(serializers.ModelSerializer):
-#     class Meta:
-#         model = Tender
-#         fields = [
-#             'title_ru', 'title_en', 'title_uz',
-#             'asosiy_talablar_ru', 'asosiy_talablar_en', 'asosiy_talablar_uz',
-#             'file',
-#             'date_published',
-#             'status',
-#             'filesize',
-#             'slug',
-#         ]
-
-# class CompaniesWithTenders(serializers.ModelSerializer):
-#     tenders = TendersInsideCompanies(many=True)
-#     class Meta:
-#         model = CompanyModel
-#         fields = [
-#             'name_ru', 'name_en', 'name_uz',
-#             'id',
-#             'tenders',
-#         ]

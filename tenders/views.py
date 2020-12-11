@@ -47,6 +47,7 @@ class CApiTendersListView(ListAPIView):
     def get_queryset(self):
         slug = self.kwargs['pk']
         return Tender.objects.filter(company=slug)
+    pagination_class = PageNumberPagination
 
 class ApiTenderByListView(ListAPIView):
     queryset = Tender.objects.all()
