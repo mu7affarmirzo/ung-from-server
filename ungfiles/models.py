@@ -9,8 +9,8 @@ from django.utils import timezone
 
 
 def upload_location(instance, filename):
-    file_path = 'allfiles/files/{title}-{filename}'.format(
-        title=str(instance.title), filename=filename
+    file_path = 'allfiles/files/{filename}'.format(
+        title=str(instance.filename), filename=filename
     )
     return file_path
 
@@ -31,8 +31,8 @@ class SubCategories(models.Model):
 
 class Documents(models.Model):
 
-    title = models.CharField(max_length=100, null=False, blank=False)
-    body = RichTextField(blank=True, null=True)
+    filename = models.CharField(max_length=100, null=False, blank=False)
+    description = RichTextField(blank=True, null=True)
     sub_catory = models.ForeignKey(SubCategories, blank=True, null=True, on_delete=models.CASCADE, related_name='docs')
     fileurl_ru = models.FileField(upload_to=upload_location, null=False, blank=False)
     fileurl_en = models.FileField(upload_to=upload_location, null=False, blank=False)
@@ -98,4 +98,4 @@ class Documents(models.Model):
         return str(value) + ext
 
     def __str__(self):
-        return str(self.title)
+        return str(self.filename)

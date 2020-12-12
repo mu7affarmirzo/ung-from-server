@@ -13,4 +13,4 @@ class CategoryTranslationOptions(TranslationOptions):
 
 @register(Documents)
 class DocumentsTranslationOptions(TranslationOptions):
-    fields = ('title', 'body')
+    fields = ('filename', 'description')

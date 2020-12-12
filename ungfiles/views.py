@@ -14,6 +14,7 @@ from .serializers import (
     CategorySerializer,
     SubCategoriesSerializer,
     DocumentsSerializer,
+    FilterDocumentsSerializer,
 )
 
 class DocumentsCompaniesListViewAPi(ListAPIView):
@@ -40,9 +41,9 @@ class SubCategoriesListViewAPI(ListAPIView):
     pagination_class = PageNumberPagination
 
 class DocsSubCategoriesAPI(ListAPIView):
-    serializer_class = DocumentsSerializer
+    serializer_class = FilterDocumentsSerializer
 
     def get_queryset(self):
         sub_c = self.kwargs['pk']
-        return Documents.objects.filter(sub_catory=sub_c)
+        return SubCategories.objects.filter(id=sub_c)
     pagination_class = PageNumberPagination

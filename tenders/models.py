@@ -112,6 +112,7 @@ class TenderLot(models.Model):
     number = models.CharField(max_length=50, blank=True, null=True)
     status = 'open'
 
+
     def __str__(self):
         return self.name
 

@@ -7,7 +7,7 @@ from .views import (
     DocsSubCategoriesAPI,
 )
 
-app_name = 'tenders'
+app_name = 'ungfiles'
 
 urlpatterns = [
     path('docs/', DocumentsCompaniesListViewAPi.as_view(), name='docs'),
