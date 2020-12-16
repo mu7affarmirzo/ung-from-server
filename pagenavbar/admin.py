@@ -1,3 +1,12 @@
 from django.contrib import admin
+from modeltranslation.admin import TranslationAdmin
+from .models import MenuCategories, MenuSubCategory
 
-# Register your models here.
+class MenuCategoryAdmin(TranslationAdmin):
+    pass
+admin.site.register(MenuCategories, MenuCategoryAdmin)
+
+
+class MenuSubCategoryAdmin(TranslationAdmin):
+    pass
+admin.site.register(MenuSubCategory, MenuSubCategoryAdmin)

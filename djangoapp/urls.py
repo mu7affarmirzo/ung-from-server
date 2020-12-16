@@ -11,6 +11,7 @@ urlpatterns = [
     path('api/news/', include('news.urls', 'news_api')),
     path('api/tenders/', include('tenders.urls', 'tenders_api')),
     path('api/documents/', include('ungfiles.urls', 'documents_api')),
+    path('api/menu/', include('pagenavbar.urls', 'menu_api')),
     path('i18n/', include('django.conf.urls.i18n')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
@@ -20,6 +21,7 @@ urlpatterns += i18n_patterns(
     path('news/', include('news.urls')),
     path('tenders/', include('tenders.urls')),
     path('documents/', include('ungfiles.urls')),
+    path('menu/', include('pagenavbar.urls')),
 
 )
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
