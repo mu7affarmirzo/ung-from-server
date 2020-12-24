@@ -8,12 +8,14 @@ from rest_framework.generics import ListAPIView
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 
-from .models import MenuSubCategory, MenuCategories
+from .models import MenuSubCategory, MenuCategories, ChildSubCategory
 
 from .serializers import (
     CategoryMenuSerializer, 
     SubCategoryMenuSerializer, 
     MenuCatSerializer,
+    ChildSerializer,
+    ForChildSerializer,
     )
 
 class MenuListAPI(ListAPIView):
@@ -28,3 +30,12 @@ class MenuSubListAPI(ListAPIView):
 class NavbarAPI(ListAPIView):
     queryset = MenuCategories.objects.all()
     serializer_class = MenuCatSerializer
+
+class ChildAPI(ListAPIView):
+    queryset = ChildSubCategory.objects.all()
+    serializer_class = ChildSerializer
+
+
+class TestListAPI(ListAPIView):
+    queryset = MenuSubCategory.objects.all()
+    serializer_class = ForChildSerializer

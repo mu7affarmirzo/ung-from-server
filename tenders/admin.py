@@ -30,6 +30,7 @@ class TenderAdminForm(forms.ModelForm):
 class TenderLotAdmin(admin.StackedInline):
     model = TenderLot
 
+
 @admin.register(Tender)
 class TenderAdmin(admin.ModelAdmin):
     inlines = [TenderLotAdmin]
@@ -37,6 +38,6 @@ class TenderAdmin(admin.ModelAdmin):
     class Meta:
         model = Tender
 
-@admin.register(TenderLot)
 class TenderLotAdmin(admin.ModelAdmin):
     pass
+admin.site.register(TenderLot, TenderLotAdmin)

@@ -6,6 +6,7 @@ from django.utils.text import slugify
 from django.conf import settings
 from django.dispatch import receiver
 from ckeditor.fields import RichTextField
+from uuid import uuid4
 
 def upload_location(instance, filename):
     file_path = 'tender/files/{title}-{filename}'.format(
@@ -14,8 +15,9 @@ def upload_location(instance, filename):
     return file_path
 
 def location_fo_upload(instance, filename):
+    ext = filename.split('.')[-1]
     file_path = 'tender/files/{filename}'.format(
-        filename=filename
+        filename='{}.{}'.format(uuid4().hex, ext)
     )
     return file_path
 

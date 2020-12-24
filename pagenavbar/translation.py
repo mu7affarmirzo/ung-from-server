@@ -1,5 +1,5 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import MenuSubCategory, MenuCategories
+from .models import MenuSubCategory, MenuCategories, ChildSubCategory
 
 @register(MenuSubCategory)
 class SubCategoriesTranslationOptions(TranslationOptions):
@@ -11,3 +11,6 @@ class SubCategoriesTranslationOptions(TranslationOptions):
 class CategoryTranslationOptions(TranslationOptions):
     fields = ('name',)
 
+@register(ChildSubCategory)
+class ChildTranslationOptions(TranslationOptions):
+    fields = ('name',)

@@ -28,7 +28,7 @@ INSTALLED_APPS = [
 
     'news.apps.NewsConfig',
     'tenders.apps.TendersConfig',
-    'docs_files.apps.DocsFilesConfig',
+    # 'docs_files.apps.DocsFilesConfig',
     'ungfiles.apps.UngfilesConfig',
     'pagenavbar.apps.PagenavbarConfig',
     # 'django_filters',

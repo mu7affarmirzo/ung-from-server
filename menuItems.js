@@ -111,7 +111,7 @@ export const menuPicPaths = {
         {
           id: 3,
           name: "Localization",
-          url: "/localization",
+          url: "/localization/",
           children: [
             {
               id: 1,

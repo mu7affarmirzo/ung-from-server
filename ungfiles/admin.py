@@ -1,6 +1,6 @@
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
-from .models import Category, SubCategories, Documents
+from .models import Category, SubCategories, Documents, OffCategory, WithoutCategory
 # TypeFiles, AllFiles
 
 # @admin.register(Category)
@@ -27,3 +27,11 @@ admin.site.register(Documents, DocumentsAdmin)
 class SubCategoriesAdmin(TranslationAdmin):
     pass
 admin.site.register(SubCategories, SubCategoriesAdmin)
+
+# class OffCategoriesAdmin(TranslationAdmin):
+#     pass
+# admin.site.register(OffCategory, OffCategoriesAdmin)
+
+# class WithoutCategoriesAdmin(TranslationAdmin):
+#     pass
+# admin.site.register(WithoutCategory, WithoutCategoriesAdmin)
