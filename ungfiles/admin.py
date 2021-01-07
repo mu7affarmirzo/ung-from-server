@@ -19,12 +19,15 @@ class CategoryAdmin(TranslationAdmin):
     pass
 admin.site.register(Category, CategoryAdmin)
 
-class DocumentsAdmin(TranslationAdmin):
+class DocsCustomAdmin(admin.ModelAdmin):
+    list_display = ('filename_uz', 'filename_ru', 'filename_en', 'sub_catory','date_published',)
+class DocumentsAdmin(DocsCustomAdmin, TranslationAdmin):
     pass
 admin.site.register(Documents, DocumentsAdmin)
 
-
-class SubCategoriesAdmin(TranslationAdmin):
+class SubCustomAdmin(admin.ModelAdmin):
+    list_display = ('subcategory_uz', 'subcategory_ru', 'subcategory_en', 'category',)
+class SubCategoriesAdmin(SubCustomAdmin,TranslationAdmin):
     pass
 admin.site.register(SubCategories, SubCategoriesAdmin)
 

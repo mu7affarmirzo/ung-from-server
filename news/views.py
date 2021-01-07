@@ -2,10 +2,12 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework import status
+from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.generics import ListAPIView
+from rest_framework.filters import OrderingFilter, SearchFilter
 
 from news.models import UngNewsModel
 from news.serializers import UngNewsSerializer, UngNewsListSerializer, SliderSerializer
@@ -34,10 +36,18 @@ def status_detail_news_view(request, status):
         serializer = UngNewsSerializer(news_post)
         return Response(serializer.data)
 
-class ApiNewsListView(ListAPIView):
+class ApiNewsListView(generics.ListAPIView):
     queryset = UngNewsModel.objects.all()
     serializer_class = UngNewsSerializer
+    # def get_queryset(self):
+    #     """
+    #     This view should return a list of all the purchases
+    #     for the currently authenticated user.
+    #     """
+    #     # user = self.request.user
+    #     return UngNewsModel.objects.filter(date_published=date_published)
     pagination_class = PageNumberPagination
+    filter_backends = (SearchFilter, OrderingFilter)
 
 class SApiNewsListView(ListAPIView):
     serializer_class = SliderSerializer

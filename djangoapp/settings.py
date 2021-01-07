@@ -12,11 +12,13 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+# CORS_ORIGIN_ALLOW_ALL=True
 
 INSTALLED_APPS = [
     'modeltranslation',
     'rest_framework',
     'ckeditor',
+    'corsheaders',
     # 'uzbplaces',
     'whitenoise.runserver_nostatic',
     'django.contrib.admin',
@@ -31,27 +33,31 @@ INSTALLED_APPS = [
     # 'docs_files.apps.DocsFilesConfig',
     'ungfiles.apps.UngfilesConfig',
     'pagenavbar.apps.PagenavbarConfig',
-    # 'django_filters',
+    'djangoapp',
+    'django_filters',
 ]
 
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 9,
-    # 'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL=True
 
 ROOT_URLCONF = 'djangoapp.urls'
 

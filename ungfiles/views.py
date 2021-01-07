@@ -5,6 +5,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView
+from rest_framework.filters import OrderingFilter, SearchFilter
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 
@@ -32,6 +33,7 @@ class AllDocCompaniesListViewAPi(ListAPIView):
     queryset = Documents.objects.all()
     serializer_class = DocumentsSerializer
     pagination_class = PageNumberPagination
+    filter_backends = (SearchFilter, OrderingFilter)
 
 
 class CategoriesCompaniesListViewAPi(ListAPIView):
@@ -61,11 +63,13 @@ class SubCategoriesListViewAPI(ListAPIView):
 
 class DocsSubCategoriesAPI(ListAPIView):
     serializer_class = FilterDocumentsSerializer
-
+    filter_backends = (SearchFilter, OrderingFilter)
+    # filter_fields = ('docs__')
     def get_queryset(self):
         sub_c = self.kwargs['pk']
         return SubCategories.objects.filter(id=sub_c)
     pagination_class = PageNumberPagination
+    # filter_backends = (SearchFilter, OrderingFilter)
 
 class OffDocsSubCategoriesAPI(ListAPIView):
     serializer_class = OffFilterDocumentsSerializer

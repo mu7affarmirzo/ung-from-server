@@ -21,7 +21,7 @@ class UngNewsModel(models.Model):
         ('False', 'False'),
     )
 
-    news_title = models.CharField(max_length=100, null=False, blank=False)
+    news_title = models.TextField(null=False, blank=False)
     news_body = RichTextField(blank=True, null=True)
     image = models.ImageField(upload_to=upload_location, null=False, blank=False)
     date_published = models.DateTimeField(auto_now_add=True, verbose_name="date_published")

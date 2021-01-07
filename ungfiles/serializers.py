@@ -65,6 +65,7 @@ class DocumentsSerializer(serializers.ModelSerializer):
             'filesize_ru', 'filesize_en', 'filesize_uz', 
             'date_published'
             ]
+        depth=1
 
 class FilterDocumentsSerializer(serializers.ModelSerializer):
     docs = DocumentsSerializer(many=True)

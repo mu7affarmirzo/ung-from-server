@@ -6,6 +6,7 @@ from django.conf import settings
 from django.dispatch import receiver
 from ckeditor.fields import RichTextField
 from django.utils import timezone
+
 from uuid import uuid4
 
 def upload_location(instance, filename):
@@ -32,7 +33,7 @@ class SubCategories(models.Model):
 
 class Documents(models.Model):
 
-    filename = models.CharField(max_length=100, null=False, blank=False)
+    filename = models.CharField(max_length=500, null=False, blank=False)
     description = RichTextField(blank=True, null=True)
     sub_catory = models.ForeignKey(SubCategories, blank=True, null=True, on_delete=models.CASCADE, related_name='docs')
     fileurl_ru = models.FileField(upload_to=upload_location, null=True, blank=True)
