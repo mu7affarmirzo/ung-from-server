@@ -1,6 +1,11 @@
 from rest_framework import serializers
-from .models import UngNewsModel
+from .models import UngNewsModel, RatingData
 from .translation import UngNewsTranslationOptions
+
+class RatingsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RatingData
+        fields = '__all__'
 
 class UngNewsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,10 +34,4 @@ class UngNewsListSerializer(serializers.ModelSerializer):
 class SliderSerializer(serializers.ModelSerializer):
     class Meta:
         model = UngNewsModel
-        fields = [
-            'news_title_ru', 'news_title_en', 'news_title_uz', 
-            'image', 
-            'slug',
-            'status',
-            'slid',
-            ]
+        fields =  '__all__'

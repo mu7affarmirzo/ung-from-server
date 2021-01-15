@@ -15,29 +15,38 @@ class FilesAdmin(TranslationAdmin):
     pass
 admin.site.register(FileTender, FilesAdmin)
 
-
-class CompaniesAdmin(TranslationAdmin):
+class CompaniesCustomAdmin(admin.ModelAdmin):
+    list_display = ('name_uz', 'address_uz',)
+class CompaniesAdmin(CompaniesCustomAdmin, TranslationAdmin):
     pass
 admin.site.register(CompanyModel, CompaniesAdmin)
 
 
-class TenderAdminForm(forms.ModelForm):
+# class TenderAdminForm(forms.ModelForm):
 
-    class Meta:
-        model = Tender
-        fields = '__all__'
+#     class Meta:
+#         model = Tender
+#         fields = '__all__'
 
 class TenderLotAdmin(admin.StackedInline):
     model = TenderLot
 
+# class TenderLotCustomAdmin(TenderLotAdmin, TranslationAdmin):
+#     pass
+# admin.site.register(TenderLot, TenderLotAdmin)
 
-@admin.register(Tender)
+# @admin.register(Tender)
 class TenderAdmin(admin.ModelAdmin):
     inlines = [TenderLotAdmin]
 
     class Meta:
         model = Tender
 
-class TenderLotAdmin(admin.ModelAdmin):
+class TenderCustomAdmin(TenderAdmin, TranslationAdmin):
+    pass
+admin.site.register(Tender, TenderCustomAdmin)
+
+
+class TenderLotAdmin(TranslationAdmin):
     pass
 admin.site.register(TenderLot, TenderLotAdmin)

@@ -5,8 +5,17 @@ class TenderCompaniesSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=True)
     class Meta:
         model = CompanyModel
-        fields = ['name_ru', 'name_en', 'name_uz',
-        'id']
+        fields = ['id',
+            'name_ru', 'name_en', 'name_uz',
+            'inn',
+            'address_ru', 'address_en', 'address_uz',
+            'phone',
+            'clientBillNumber',
+            'deliveryTerms_ru', 'deliveryTerms_en', 'deliveryTerms_uz',
+            'deadline_ru', 'deadline_en', 'deadline_uz',
+            'paymentTerms_ru', 'paymentTerms_en', 'paymentTerms_uz',
+        ]
+        # fields = '__all__'
     
 class CompanyRequisitesSerializer(serializers.ModelSerializer):
 

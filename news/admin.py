@@ -1,27 +1,28 @@
 from django.contrib import admin
 from django import forms
 
-from news.models import UngNewsModel
+from news.models import UngNewsModel, RatingData
 from modeltranslation.admin import TranslationAdmin
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
+# this is for ratingData
+class RatingsCustomAdmin(admin.ModelAdmin):
+    list_display = ('text_ru', 'text_en', 'text_uz')
+    class Meta:
+        verbose_name = "ratings"
+class RatingsAdmin(RatingsCustomAdmin, TranslationAdmin):
+    pass
+admin.site.register(RatingData, RatingsAdmin)
 
 
+# this is for News
 class NewsCustomAdmin(admin.ModelAdmin):
-    list_display = ('news_title_uz', 'date_published', 'status')
+    list_display = ('news_title_uz', 'date_published', 'status', 'youth_stat')
+    class Meta:
+        verbose_name = "users"
 class NewsAdmin(NewsCustomAdmin, TranslationAdmin):
     pass
 admin.site.register(UngNewsModel, NewsAdmin)
 
 
-
-# @admin.register(UngNewsModel)
-# class UngNewsModelAdmin(TranslationAdmin):
-#     news_body_ru = forms.CharField(label='Текст', widget=CKEditorUploadingWidget())
-#     news_body_uz = forms.CharField(label='Tekst', widget=CKEditorUploadingWidget())
-#     news_body_en = forms.CharField(label='Text', widget=CKEditorUploadingWidget())
-
-#     class Meta:
-#         model = UngNewsModel
-#         fields = '__all__'
 

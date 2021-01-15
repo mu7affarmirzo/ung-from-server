@@ -23,9 +23,9 @@ def location_fo_upload(instance, filename):
 
 class FileTender(models.Model):
     filename = models.CharField(max_length=150, blank=True, null=True)
-    fileurl_ru = models.FileField(upload_to=location_fo_upload, null=False, blank=False)
-    fileurl_en = models.FileField(upload_to=location_fo_upload, null=False, blank=False)
-    fileurl_uz = models.FileField(upload_to=location_fo_upload, null=False, blank=False)
+    fileurl_ru = models.FileField(upload_to=location_fo_upload, null=True, blank=True)
+    fileurl_en = models.FileField(upload_to=location_fo_upload, null=True, blank=True)
+    fileurl_uz = models.FileField(upload_to=location_fo_upload, null=True, blank=True)
     description = RichTextField(blank=True, null=True)
     
     def extension_ru(self):
@@ -121,12 +121,12 @@ class TenderLot(models.Model):
 class CompanyModel(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True)
     inn = models.CharField(max_length=50, null=True, blank=True)
-    address = models.CharField(max_length=50, null=True, blank=True)
+    address = models.TextField(null=True, blank=True)
     phone = models.CharField(max_length=50, null=True, blank=True)
     clientBillNumber = models.CharField(max_length=50, null=True, blank=True)
-    deliveryTerms = models.CharField(max_length=50, null=True, blank=True)
-    deadline = models.CharField(max_length=50, null=True, blank=True)
-    paymentTerms = models.CharField(max_length=50, null=True, blank=True)
+    deliveryTerms = models.TextField(null=True, blank=True)
+    deadline = models.TextField(null=True, blank=True)
+    paymentTerms = models.TextField(null=True, blank=True)
     date_published = models.DateTimeField(auto_now_add=True, verbose_name="date_published")
     date_ends = models.DateTimeField(auto_now=True, verbose_name="date_ending")
 

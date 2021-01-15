@@ -9,8 +9,18 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.generics import ListAPIView
 from rest_framework.filters import OrderingFilter, SearchFilter
 
-from news.models import UngNewsModel
-from news.serializers import UngNewsSerializer, UngNewsListSerializer, SliderSerializer
+from news.models import UngNewsModel, RatingData
+from news.serializers import (
+    UngNewsSerializer, 
+    UngNewsListSerializer, 
+    SliderSerializer, 
+    RatingsSerializer
+)
+
+class RatingsListViewAPI(generics.ListAPIView):
+    queryset = RatingData.objects.all()
+    serializer_class = RatingsSerializer
+    pagination_class = PageNumberPagination
 
 @api_view(['GET', ])
 def api_detail_news_view(request, slug):
@@ -39,13 +49,6 @@ def status_detail_news_view(request, status):
 class ApiNewsListView(generics.ListAPIView):
     queryset = UngNewsModel.objects.all()
     serializer_class = UngNewsSerializer
-    # def get_queryset(self):
-    #     """
-    #     This view should return a list of all the purchases
-    #     for the currently authenticated user.
-    #     """
-    #     # user = self.request.user
-    #     return UngNewsModel.objects.filter(date_published=date_published)
     pagination_class = PageNumberPagination
     filter_backends = (SearchFilter, OrderingFilter)
 
@@ -55,6 +58,13 @@ class SApiNewsListView(ListAPIView):
     def get_queryset(self):
         slid = self.kwargs['pk']
         return UngNewsModel.objects.filter(status=slid)
+
+class YApiNewsListView(ListAPIView):
+    serializer_class = SliderSerializer
+
+    def get_queryset(self):
+        youth = self.kwargs['pk']
+        return UngNewsModel.objects.filter(youth_stat=youth)
 
 
 class SliderViewset(viewsets.ModelViewSet):
