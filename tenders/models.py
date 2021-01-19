@@ -7,6 +7,9 @@ from django.conf import settings
 from django.dispatch import receiver
 from ckeditor.fields import RichTextField
 from uuid import uuid4
+from django.utils import timezone
+from datetime import datetime 
+from django.utils.timezone import now
 
 def upload_location(instance, filename):
     file_path = 'tender/files/{title}-{filename}'.format(
@@ -92,8 +95,8 @@ class Tender(models.Model):
     title = models.CharField(max_length=100, null=False, blank=False)
     asosiy_talablar = RichTextField(blank=True, null=True)
     fileInfo = models.ForeignKey(FileTender, related_name='file_info', null=False, blank=False, on_delete=models.CASCADE)
-    date_published = models.DateTimeField(auto_now_add=True, verbose_name="date_published")
-    date_updated = models.DateTimeField(auto_now=True, verbose_name="date_updated")
+    date_published = models.DateTimeField(default=datetime.now(), verbose_name="date_published")
+    date_end = models.DateTimeField(default=datetime.now(),verbose_name="date_end")
     slug = models.SlugField(blank=True, unique=True)
     
     status = models.BooleanField("Is Open", default=True)
@@ -119,11 +122,11 @@ class TenderLot(models.Model):
         return self.name
 
 class CompanyModel(models.Model):
-    name = models.CharField(max_length=50, null=True, blank=True)
+    name = models.CharField(max_length=350, null=True, blank=True)
     inn = models.CharField(max_length=50, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     phone = models.CharField(max_length=50, null=True, blank=True)
-    clientBillNumber = models.CharField(max_length=50, null=True, blank=True)
+    clientBillNumber = models.CharField(max_length=450, null=True, blank=True)
     deliveryTerms = models.TextField(null=True, blank=True)
     deadline = models.TextField(null=True, blank=True)
     paymentTerms = models.TextField(null=True, blank=True)

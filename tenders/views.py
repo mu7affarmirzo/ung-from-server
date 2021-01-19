@@ -7,6 +7,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
+from rest_framework.filters import OrderingFilter, SearchFilter
 
 from tenders.models import Tender, TenderLot, CompanyModel, FileTender
 from tenders.serializers import (
@@ -53,6 +54,7 @@ class ApiTenderByListView(ListAPIView):
     queryset = Tender.objects.all()
     serializer_class = TenderListSerializer
     pagination_class = PageNumberPagination
+    filter_backends = (SearchFilter, OrderingFilter)
 
 class FileInfoListViewAPI(ListAPIView):
     queryset = FileTender.objects.all()

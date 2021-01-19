@@ -30,8 +30,8 @@ class CompanyRequisitesSerializer(serializers.ModelSerializer):
             'deliveryTerms_ru', 'deliveryTerms_en', 'deliveryTerms_uz',
             'deadline_ru', 'deadline_en', 'deadline_uz',
             'paymentTerms_ru', 'paymentTerms_en', 'paymentTerms_uz',
-            'date_published',
-            'date_ends',
+            # 'date_published',
+            # 'date_ends',
         ]
 
 class TenderLotSerializer(serializers.ModelSerializer):
@@ -73,6 +73,7 @@ class TenderSerializer(serializers.ModelSerializer):
             # 'file',
             'fileInfo',
             'date_published',
+            'date_end',
             'tenderlots',
             'status',
             # 'filesize',
@@ -90,6 +91,7 @@ class TenderListSerializer(serializers.ModelSerializer):
             'asosiy_talablar_ru', 'asosiy_talablar_en', 'asosiy_talablar_uz',
             # 'file',
             'date_published',
+            'date_end',
             'status',
             # 'filesize',
             'slug',

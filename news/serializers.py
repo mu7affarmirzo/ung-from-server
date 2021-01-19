@@ -5,7 +5,14 @@ from .translation import UngNewsTranslationOptions
 class RatingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = RatingData
-        fields = '__all__'
+        fields = [
+            'id',
+            "icon",
+            "text_ru",
+            "text_en",
+            "text_uz",
+            "number",
+        ]
 
 class UngNewsSerializer(serializers.ModelSerializer):
     class Meta:
