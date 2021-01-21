@@ -143,14 +143,15 @@ EXTRA_LANG_INFO = {
     },
 }
 LANGUAGES = (
+    ('uz', gettext('Uzbek')),
     ('ru', gettext('Russian')),
     ('en', gettext('English')),
-    ('uz', gettext('Uzbek')),
+    # ('uz', gettext('Uzbek')),
 )
 
 django.conf.locale.LANG_INFO.update(EXTRA_LANG_INFO)
 
-MODELTRANSLATION_LANGUAGES = ('ru', 'en', 'uz')
+MODELTRANSLATION_LANGUAGES = ('uz', 'ru', 'en')
 MODELTRANSLATION_FALLBACK_LANGUAGES = ('ru', 'en')
 
 LOCALE_PATHS = [

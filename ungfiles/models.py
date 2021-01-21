@@ -43,6 +43,9 @@ class Documents(models.Model):
     # slug = models.SlugField(blank=True, unique=True)
     url = models.URLField(max_length = 200, blank=True, null=True)
 
+    class Meta:
+        ordering = ['-date_published']
+
     def extension_ru(self):
         if self.fileurl_ru==None:
             extention = None
@@ -126,6 +129,8 @@ class Documents(models.Model):
     def __str__(self):
         return str(self.filename)
 
+    
+
 class OffCategory(models.Model):
     name = models.CharField(max_length=150)
 
@@ -202,3 +207,6 @@ class WithoutCategory(models.Model):
 
     def __str__(self):
         return str(self.subcategory)
+
+    class Meta:
+        ordering = ['-date_published']

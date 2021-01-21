@@ -22,29 +22,42 @@ def location_fo_upload(instance, filename):
     file_path = 'tender/files/{filename}'.format(
         filename='{}.{}'.format(uuid4().hex, ext)
     )
-    return file_path
+    return str(file_path)
 
 class FileTender(models.Model):
     filename = models.CharField(max_length=150, blank=True, null=True)
-    fileurl_ru = models.FileField(upload_to=location_fo_upload, null=True, blank=True)
-    fileurl_en = models.FileField(upload_to=location_fo_upload, null=True, blank=True)
-    fileurl_uz = models.FileField(upload_to=location_fo_upload, null=True, blank=True)
+    ru_fileurl = models.FileField(upload_to=location_fo_upload, null=True, blank=True)
+    en_fileurl = models.FileField(upload_to=location_fo_upload, null=True, blank=True)
+    uz_fileurl = models.FileField(upload_to=location_fo_upload, null=True, blank=True)
     description = RichTextField(blank=True, null=True)
     
     def extension_ru(self):
-        name, extension = os.path.splitext(self.fileurl_ru.name)
+        name, extension = os.path.splitext(self.ru_fileurl.name)
         return extension
     def extension_en(self):
-        name, extension = os.path.splitext(self.fileurl_en.name)
+        name, extension = os.path.splitext(self.en_fileurl.name)
         return extension
     def extension_uz(self):
-        name, extension = os.path.splitext(self.fileurl_uz.name)
+        name, extension = os.path.splitext(self.uz_fileurl.name)
         return extension
+
+
+
+    def fileurl_ru(self):
+        url = 'http://webdev.ung.uz' + str(self.ru_fileurl.url)
+        return str(url)
+    def fileurl_en(self):
+        url = 'http://webdev.ung.uz' + str(self.en_fileurl.url)
+        return str(url)
+    def fileurl_uz(self):
+        url = 'http://webdev.ung.uz' + str(self.uz_fileurl.url)
+        return str(url)
+
 
 
     @property
     def filesize_ru(self):
-        x = self.fileurl_ru.size
+        x = self.ru_fileurl.size
         y = 512000
         if x < y:
             value = round(x / 1000, 2)
@@ -59,7 +72,7 @@ class FileTender(models.Model):
     
     @property
     def filesize_en(self):
-        x = self.fileurl_en.size
+        x = self.en_fileurl.size
         y = 512000
         if x < y:
             value = round(x / 1000, 2)
@@ -74,7 +87,7 @@ class FileTender(models.Model):
     
     @property
     def filesize_uz(self):
-        x = self.fileurl_uz.size
+        x = self.en_fileurl.size
         y = 512000
         if x < y:
             value = round(x / 1000, 2)
@@ -107,6 +120,9 @@ class Tender(models.Model):
     @property
     def tenderlots(self):
         return self.tenderlot_set.all()
+
+    class Meta:
+        ordering = ['-date_published']
 
 class TenderLot(models.Model):
     tender = models.ForeignKey(Tender, on_delete=models.CASCADE)

@@ -18,8 +18,8 @@ urlpatterns = [
     path('list/companies/<int:pk>', CApiTendersListView.as_view(), name='com_list'),
     path('list1', ApiTenderLotsListView.as_view(), name='list1'),
     path('companies', ApiTenderCompaniesListView.as_view(), name='list_companies'),
-    path('companies/<int:pk>', TApiTenderCompaniesListView.as_view(), name='indiv_companies'),
-
+    # path('companies/<int:pk>', TApiTenderCompaniesListView.as_view(), name='indiv_companies'),
+    path('companies1', TApiTenderCompaniesListView.as_view(), name='indiv_companies'),
 
     path('files/', FileInfoListViewAPI.as_view(), name='filesInfo'),
 ]

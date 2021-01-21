@@ -15,7 +15,7 @@ class TenderCompaniesSerializer(serializers.ModelSerializer):
             'deadline_ru', 'deadline_en', 'deadline_uz',
             'paymentTerms_ru', 'paymentTerms_en', 'paymentTerms_uz',
         ]
-        # fields = '__all__'
+        
     
 class CompanyRequisitesSerializer(serializers.ModelSerializer):
 
@@ -58,6 +58,7 @@ class FileInfoSerializer(serializers.ModelSerializer):
             'description_ru', 'description_en', 'description_uz',
             'extension_ru', 'extension_en', 'extension_uz',
             'filesize_ru', 'filesize_en', 'filesize_uz',
+            # 'urlfile_ru', 'urlfile_en', 'urlfile_uz',
         ]
 
 class TenderSerializer(serializers.ModelSerializer):
@@ -96,6 +97,11 @@ class TenderListSerializer(serializers.ModelSerializer):
             # 'filesize',
             'slug',
         ]
+
+    # def get_company(self, instance):
+    #     tenders = instance.company.all().order_by('-date_published')
+    #     return TenderCompaniesSerializer(tenders, many=True).data
+
 
 class CoTenSerializer(serializers.ModelSerializer):
     tenders = TenderListSerializer(many=True)

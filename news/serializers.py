@@ -20,7 +20,7 @@ class UngNewsSerializer(serializers.ModelSerializer):
         fields = [
             'news_title_ru', 'news_title_en', 'news_title_uz', 
             'news_body_ru', 'news_body_en', 'news_body_uz',
-            'image', 
+            'image_ru','image_en','image_uz', 
             'date_published',
             'date_updated', 
             'slug',
@@ -33,7 +33,7 @@ class UngNewsListSerializer(serializers.ModelSerializer):
         model = UngNewsModel
         fields = [
             'news_title_ru', 'news_title_en', 'news_title_uz', 
-            'image', 
+            'image_ru','image_en','image_uz', 
             'date_updated', 
             'slug',
             ]

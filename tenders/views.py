@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-from rest_framework import status
-from rest_framework import viewsets
+from rest_framework import status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
-from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.filters import OrderingFilter, SearchFilter 
+from django_filters.rest_framework import DjangoFilterBackend
 
 from tenders.models import Tender, TenderLot, CompanyModel, FileTender
 from tenders.serializers import (
@@ -24,13 +24,15 @@ class ApiTenderCompaniesListView(ListAPIView):
     queryset = CompanyModel.objects.all()
     serializer_class = TenderCompaniesSerializer
     
-class TApiTenderCompaniesListView(ListAPIView):
-    # queryset = CompanyModel.objects.all()
-    serializer_class = TenderCompaniesSerializer
 
+class TApiTenderCompaniesListView(ListAPIView):
+    serializer_class = TenderCompaniesSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    
     def get_queryset(self):
         slug = self.kwargs['pk']
         return CompanyModel.objects.filter(id=slug)
+
 
 class ApiTenderLotsListView(ListAPIView):
     queryset = TenderLot.objects.all()
@@ -47,6 +49,7 @@ class CApiTendersListView(ListAPIView):
 
     def get_queryset(self):
         slug = self.kwargs['pk']
+        filter_backends = (SearchFilter, OrderingFilter)
         return Tender.objects.filter(company=slug)
     pagination_class = PageNumberPagination
 
