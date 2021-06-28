@@ -117,6 +117,10 @@ class Tender(models.Model):
     def __str__(self):
         return self.title
 
+    def UrlDirection(self):
+        tendersUrl = 'tenders/'+str(self.slug)
+        return tendersUrl
+
     @property
     def tenderlots(self):
         return self.tenderlot_set.all()

@@ -1,4 +1,5 @@
 import os, django
+from django.conf import settings
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,14 +28,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'live_support',
 
+
+    # 'simple_mail',
     'news.apps.NewsConfig',
     'tenders.apps.TendersConfig',
+    'interactive.apps.InteractiveConfig',
     # 'docs_files.apps.DocsFilesConfig',
     'ungfiles.apps.UngfilesConfig',
     'pagenavbar.apps.PagenavbarConfig',
     'djangoapp',
     'django_filters',
+
 ]
 
 
@@ -83,14 +89,22 @@ WSGI_APPLICATION = 'djangoapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'NewUng',
+#         'USER': 'postgres',
+#         'PASSWORD': 'V1ctor=>me',
+#         'HOST': '127.0.0.1', 
+#         'PORT': '5432',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'NewUng',
-        'USER': 'postgres',
-        'PASSWORD': 'V1ctor=>me',
-        'HOST': '127.0.0.1', 
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -113,6 +127,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+
+# MAIL_HOST = 'stmp.gmail.com'
+# EMAIL_PORT = '587'
+# # EMAIL_HOST_USER = ''
+# EMAIL_HOST_USER = 'cmuzaffarmirzo@gmail.com'
+# # EMAIL_HOST_PASSWORD = ''
+# EMAIL_HOST_PASSWORD = 'V1ctor=>me'
+# EMAIL_USE_TLS = True
+# # EMAIL_USE_SSL = False
+# # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# # MAILER_EMAIL_BACKEND = EMAIL_BACKEND
 
 
 
@@ -180,6 +206,21 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+MAILER_EMAIL_BACKEND = EMAIL_BACKEND
+MAIL_HOST = 'stmp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'cmuzaffarmirzo@gmail.com'
+EMAIL_HOST_PASSWORD = 'V1ctor=>me'
+EMAIL_USE_TLS = True
+
+# EMAIL_USE_SSL = False
+
+
+
 
 
 # LOGGING = {

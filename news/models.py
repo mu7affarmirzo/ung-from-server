@@ -1,6 +1,6 @@
 from django.db import models
 
-from django.db.models.signals import pre_save, post_delete
+from django.db.models.signals import pre_save, post_delete, post_save
 from django.utils.text import slugify
 from django.conf import settings
 from django.dispatch import receiver
@@ -9,6 +9,8 @@ from django.utils import timezone
 from datetime import datetime 
 from django.utils.timezone import now
 import random as r
+
+from django.core.mail import send_mail
 
 
 from uuid import uuid4
@@ -57,6 +59,7 @@ class UngNewsModel(models.Model):
     # author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     status = models.BooleanField(verbose_name="slider")
     youth_stat = models.BooleanField(verbose_name="youth_union")
+    # newsUrl = 'news/'+str(slug)
 
     def slid(self):
         if self.status == True:
@@ -70,9 +73,29 @@ class UngNewsModel(models.Model):
         else:
             return int("0")
 
+    def UrlDirection(self):
+        newsUrl = 'news/'+str(self.slug)
+        return newsUrl
+
 
     def __str__(self):
         return self.news_title
+
+
+@receiver(post_save, sender=UngNewsModel)
+def send_news_via_email(sender, instance, created, **kwargs):
+    if created:
+        news_title = instance.news_title if instance.news_title else "no title given"
+        message = 'Here is our new post!\n' + news_title
+        subject = "news added"
+        from_email = settings.EMAIL_HOST_USER
+        send_mail(
+            subject,
+            message,
+            from_email,
+            ['m.choriev@student.inha.uz', 'm.choriev@ung.uz'],
+            fail_silently=False,
+        )
 
 @receiver(post_delete, sender = UngNewsModel)
 def submission_delete(sender, instance, **kwargs):

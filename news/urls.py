@@ -5,7 +5,8 @@ from news.views import (
     api_detail_news_view, ApiNewsListView, status_detail_news_view,
     SApiNewsListView,
     YApiNewsListView,
-    RatingsListViewAPI
+    RatingsListViewAPI,
+    search,
     )
 
 app_name = 'news'
@@ -14,6 +15,7 @@ app_name = 'news'
 urlpatterns = [
     path('<slug>/', api_detail_news_view, name='detail'),
     path('list', ApiNewsListView.as_view(), name='list'),
+    path('search', search, name='search'),
     path('ratings', RatingsListViewAPI.as_view(), name='ratings'),
     path('slider/<int:pk>', SApiNewsListView.as_view(), name='slider_list'),
     path('youth/<int:pk>', YApiNewsListView.as_view(), name='youth_list'),

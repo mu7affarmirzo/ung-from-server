@@ -1,21 +1,38 @@
+import json
+from django.http import JsonResponse
+from django.core.serializers import serialize
+from django.core.serializers.json import DjangoJSONEncoder
+from itertools import chain
+
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework import generics
+from rest_framework import filters
 from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.generics import ListAPIView
 from rest_framework.filters import OrderingFilter, SearchFilter
 
+from django.core.mail import send_mail
+
+
+from django.db.models import Q
+
+
 from news.models import UngNewsModel, RatingData
+from tenders.models import Tender
 from news.serializers import (
     UngNewsSerializer, 
     UngNewsListSerializer, 
     SliderSerializer, 
-    RatingsSerializer
+    RatingsSerializer,
+    SeachNewsSerializer,
+    SeachTendersSerializer
 )
+
 
 class RatingsListViewAPI(generics.ListAPIView):
     queryset = RatingData.objects.all()
@@ -24,6 +41,15 @@ class RatingsListViewAPI(generics.ListAPIView):
 
 @api_view(['GET', ])
 def api_detail_news_view(request, slug):
+
+    send_mail(
+        'HEllo',
+        'This is email test',
+        'cmuzaffarmirzo@gmail.com',
+        ['m.choriev@student.inha.uz', 'm.choriev@ung.uz '],
+        fail_silently=False,
+    )
+
     try:
         news_post = UngNewsModel.objects.get(slug=slug)
 
@@ -50,7 +76,9 @@ class ApiNewsListView(generics.ListAPIView):
     queryset = UngNewsModel.objects.all()
     serializer_class = UngNewsSerializer
     pagination_class = PageNumberPagination
-    filter_backends = (SearchFilter, OrderingFilter)
+    # filter_backends = (SearchFilter, OrderingFilter)
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['news_title', 'news_body']
 
 class SApiNewsListView(ListAPIView):
     serializer_class = SliderSerializer
@@ -80,3 +108,41 @@ class SliderViewset(viewsets.ModelViewSet):
         truuue = UngNewsModel.objects.filter(stat_type=params['pk'])
         serializer = CarSpecsSerializer(truuue, many=True)
         return Response(serializer.data)
+
+
+def get_news_queryset(query=None):
+    queryset = []
+    queries = query.split(" ")
+    for q in queries:
+        posts = UngNewsModel.filter(
+            Q(news_title__icontrains=q) |
+            Q(news_body__icontrains=q)).distinct()
+        for post in posts : 
+            queryset.append(post)
+
+    return list(set(queryset))
+
+@api_view(['POST', ])
+def search(request):
+
+    a = request.data.dict()['word']
+    print(type(request.data))
+    print(request.data['word'])
+    if request.method == 'POST':
+        queryset_news = UngNewsModel.objects.filter(
+            Q(news_title_uz__contains=a) | 
+            Q(news_title_ru__contains=a) | 
+            Q(news_title_en__contains=a))
+
+        queryset_tenders = Tender.objects.filter(
+            Q(title_uz__contains=a) | 
+            Q(title_ru__contains=a) | 
+            Q(title_en__contains=a))
+
+        serializer_news = SeachNewsSerializer(queryset_news, many=True)
+        serializer_tenders = SeachTendersSerializer(queryset_tenders, many=True)
+        new_data = serializer_news.data + serializer_tenders.data
+
+        return Response(new_data)
+
+

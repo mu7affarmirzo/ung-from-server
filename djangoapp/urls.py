@@ -6,6 +6,12 @@ from django.conf.urls.i18n import i18n_patterns
 from django.urls import path
 from django.views.generic.base import TemplateView
 
+# admin.autodiscover()
+
+admin.site.site_header = "UNG Admin"
+admin.site.site_title = "UNG Admin Portal"
+admin.site.index_title = "Welcome to UNG official web-site!"
+
 urlpatterns = [
     # url(r'^$', TemplateView.as_view(template_name='index.html'), name="home"),
     path('', TemplateView.as_view(template_name='index.html'), name="home"),
@@ -15,6 +21,8 @@ urlpatterns = [
     path('api/documents/', include('ungfiles.urls', 'documents_api')),
     path('api/menu/', include('pagenavbar.urls', 'menu_api')),
     path('i18n/', include('django.conf.urls.i18n')),
+
+    # path('support/', include('live_support.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
