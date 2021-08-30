@@ -4,10 +4,12 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.core.mail import send_mail
 from django.dispatch import receiver
+from ckeditor.fields import RichTextField
 
 from uuid import uuid4
 
 from news.models import UngNewsModel
+
 
 def upload_location(instance, filename):
     ext = filename.split('.')[-1]
@@ -18,10 +20,10 @@ def upload_location(instance, filename):
 
 
 class ApplicationForm(models.Model):
-    full_name = models.CharField(max_length=500, blank=True, null=True)
-    address = models.CharField(max_length=500, blank=True, null=True)
+    full_name = models.CharField(max_length=500, blank=True, null=True, verbose_name='FIO')
+    address = models.CharField(max_length=500, blank=True, null=True, verbose_name='Manzil')
     email = models.EmailField()
-    number = models.CharField(max_length=500, blank=True, null=True)
+    number = models.CharField(max_length=500, blank=True, null=True, verbose_name='Telefon raqami')
     birth_date = models.CharField(max_length=500, blank=True, null=True)
     topic = models.CharField(max_length=500, blank=True, null=True)
     text = models.TextField(blank=True, null=True)
@@ -33,7 +35,9 @@ class ApplicationForm(models.Model):
     def __str__(self):
         return str(self.topic)
 
-
+    class Meta:
+        verbose_name = "Murojaatlar"
+        verbose_name_plural = "Murojaatlar"
 
 
 class MailsModel(models.Model):
@@ -41,27 +45,32 @@ class MailsModel(models.Model):
     email = models.EmailField()
     date_subscribed = models.DateTimeField(default=datetime.now(),verbose_name="date_subscribed")
 
-
     def __str__(self):
         return str(self.email)
 
     class Meta:
         ordering = ('-date_subscribed',)
 
-# @receiver(post_save, sender=UngNewsModel)
-# def send_news_via_email(sender, instance, created, **kwargs):
-#     if created:
-#         news_title = instance.news_title if instance.news_title else "no title given"
-#         message = 'Here is our new post!\n' + news_title
-#         subject = "news added"
-#         from_email = settings.EMAIL_HOST_USER
-#         send_mail(
-#             subject,
-#             message,
-#             from_email,
-#             ['m.choriev@student.inha.uz', 'm.choriev@ung.uz '],
-#             fail_silently=False,
-#         )
+
+class QuestionaireModel(models.Model):
+    full_text = models.TextField(blank=True, null=True)
+    votes_count = models.IntegerField(blank=True, null=True, default=0)
+    date_created = models.DateTimeField(default=datetime.now(),verbose_name="date_created")
+
+    def __str__(self):
+        return str(self.full_text)
+
+    class Meta:
+        ordering = ('-date_created',)
 
 
-# post_save.connect(send_news, sender=MailsModel)
+class OptionsModel(models.Model):
+    question = models.ForeignKey(QuestionaireModel,related_name='options', on_delete=models.CASCADE)
+    option = RichTextField(blank=True, null=True)
+    votes = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return str(self.option)
+
+    class Meta:
+        ordering = ('id',)

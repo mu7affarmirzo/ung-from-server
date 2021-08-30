@@ -22,16 +22,32 @@ from django.core.mail import send_mail
 from django.db.models import Q
 
 
-from news.models import UngNewsModel, RatingData
+from news.models import *
 from tenders.models import Tender
-from news.serializers import (
-    UngNewsSerializer, 
-    UngNewsListSerializer, 
-    SliderSerializer, 
-    RatingsSerializer,
-    SeachNewsSerializer,
-    SeachTendersSerializer
-)
+from news.serializers import *
+
+class ComplianceApiNewsListView(generics.ListAPIView):
+    queryset = ComplNewsModel.objects.all()
+    serializer_class = ComplianceNewsListSerializer
+    pagination_class = PageNumberPagination
+    # filter_backends = (SearchFilter, OrderingFilter)
+    # filter_backends = [filters.SearchFilter]
+    # search_fields = ['news_title', 'news_body']
+
+
+@api_view(['GET',])
+def complinace_news_detail(request, slug):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        snippet = ComplNewsModel.objects.get(slug=slug)
+    except ComplNewsModel.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ComplianceNewsSerializer(snippet)
+        return Response(serializer.data)
 
 
 class RatingsListViewAPI(generics.ListAPIView):
@@ -106,8 +122,9 @@ class SliderViewset(viewsets.ModelViewSet):
         params = kwargs
         print(params['pk'])
         truuue = UngNewsModel.objects.filter(stat_type=params['pk'])
-        serializer = CarSpecsSerializer(truuue, many=True)
+        serializer = SliderSerializer(truuue, many=True)
         return Response(serializer.data)
+
 
 
 def get_news_queryset(query=None):
@@ -117,7 +134,7 @@ def get_news_queryset(query=None):
         posts = UngNewsModel.filter(
             Q(news_title__icontrains=q) |
             Q(news_body__icontrains=q)).distinct()
-        for post in posts : 
+        for post in posts:
             queryset.append(post)
 
     return list(set(queryset))

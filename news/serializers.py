@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import UngNewsModel, RatingData
+from .models import UngNewsModel, RatingData, ComplNewsModel
 from tenders.models import Tender
 from .translation import UngNewsTranslationOptions
+
 
 class RatingsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,6 +15,7 @@ class RatingsSerializer(serializers.ModelSerializer):
             "text_uz",
             "number",
         ]
+
 
 class UngNewsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,6 +33,7 @@ class UngNewsSerializer(serializers.ModelSerializer):
             # 'newsUrl'
             ]
 
+
 class UngNewsListSerializer(serializers.ModelSerializer):
     class Meta:
         model = UngNewsModel
@@ -43,10 +46,11 @@ class UngNewsListSerializer(serializers.ModelSerializer):
             # 'newsUrl'
             ]
 
+
 class SliderSerializer(serializers.ModelSerializer):
     class Meta:
         model = UngNewsModel
-        fields =  '__all__'
+        fields = '__all__'
 
 
 class SeachNewsSerializer(serializers.ModelSerializer):
@@ -60,6 +64,7 @@ class SeachNewsSerializer(serializers.ModelSerializer):
             'UrlDirection',
             ]
 
+
 class SeachTendersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tender
@@ -67,3 +72,29 @@ class SeachTendersSerializer(serializers.ModelSerializer):
             'title_ru', 'title_en', 'title_uz', 
             'UrlDirection',
             ]
+
+
+class ComplianceNewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ComplNewsModel
+        fields = [
+            'news_title_ru', 'news_title_en', 'news_title_uz',
+            'news_body_ru', 'news_body_en', 'news_body_uz',
+            'image',
+            'date_published',
+            'date_updated',
+            'slug',
+            'UrlDirection',
+        ]
+
+
+class ComplianceNewsListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ComplNewsModel
+        fields = [
+            'news_title_ru', 'news_title_en', 'news_title_uz',
+            'image',
+            'date_updated',
+            'slug',
+            'UrlDirection',
+        ]

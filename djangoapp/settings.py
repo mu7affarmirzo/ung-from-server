@@ -16,6 +16,7 @@ ALLOWED_HOSTS = ['*']
 # CORS_ORIGIN_ALLOW_ALL=True
 
 INSTALLED_APPS = [
+    'csvexport',
     'modeltranslation',
     'rest_framework',
     'ckeditor',
@@ -38,9 +39,21 @@ INSTALLED_APPS = [
     # 'docs_files.apps.DocsFilesConfig',
     'ungfiles.apps.UngfilesConfig',
     'pagenavbar.apps.PagenavbarConfig',
+    'hr.apps.HrConfig',
     'djangoapp',
     'django_filters',
 
+    'axes',
+
+]
+
+
+AUTHENTICATION_BACKENDS = [
+    # AxesBackend should be the first backend in the AUTHENTICATION_BACKENDS list.
+    'axes.backends.AxesBackend',
+
+    # Django ModelBackend is the default authentication backend.
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 
@@ -61,6 +74,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'axes.middleware.AxesMiddleware',
 ]
 
 CORS_ORIGIN_ALLOW_ALL=True
@@ -107,6 +122,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+CSV_EXPORT_FORMAT_FORM = True
 
 
 # Password validation
@@ -206,6 +223,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
+# MEDIA_ROOT = '/djangoProjects/ung-from-server/ung-from-server/media_cdn'
 
 
 
@@ -216,34 +234,3 @@ EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'cmuzaffarmirzo@gmail.com'
 EMAIL_HOST_PASSWORD = 'V1ctor=>me'
 EMAIL_USE_TLS = True
-
-# EMAIL_USE_SSL = False
-
-
-
-
-
-# LOGGING = {
-#     'formatters': {
-#         'verbose': {
-#             'format': '{levelname} {message}',
-#             'style': '{',
-#         },
-#     },
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'file': {
-#             'level': 'DEBUG',
-#             'class': 'logging.FileHandler',
-#             'filename': 'debug.log',
-#         },
-#         },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['file'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#     },
-# }

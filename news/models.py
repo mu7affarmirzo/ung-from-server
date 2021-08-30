@@ -82,6 +82,28 @@ class UngNewsModel(models.Model):
         return self.news_title
 
 
+class ComplNewsModel(models.Model):
+
+    class Meta:
+        verbose_name = "Compliance Yangiliklar"
+        verbose_name_plural = "Compliance Yangiliklar"
+
+    news_title = models.TextField(null=True, blank=True)
+    news_body = RichTextField(blank=True, null=True)
+    image = models.ImageField(upload_to=upload_location, null=True, blank=True)
+    date_published = models.DateTimeField(default=datetime.now(),verbose_name="date_published")
+    date_updated = models.DateTimeField(auto_now=True, verbose_name="date_updated")
+    slug = models.SlugField(blank=True, unique=True)
+
+    def UrlDirection(self):
+
+        newsUrl = 'compliance/news/'+str(self.slug)
+        return newsUrl
+
+    def __str__(self):
+        return self.news_title
+
+
 @receiver(post_save, sender=UngNewsModel)
 def send_news_via_email(sender, instance, created, **kwargs):
     if created:
@@ -108,6 +130,13 @@ def pre_save_news_post_receiver(sender, instance, *args, **kwargs):
         instance.slug = slugify(str(r.randint(1,10000)) + "-" + str(r.randint(1,10000)))
 
 pre_save.connect(pre_save_news_post_receiver, sender=UngNewsModel)
+
+
+def pre_save_compl_news_post_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = slugify(str(r.randint(1,10000)) + "-" + str(r.randint(1,10000)))
+
+pre_save.connect(pre_save_compl_news_post_receiver, sender=ComplNewsModel)
 
 # def upload_location(instance, filename):
 #     ext = filename.split('.')[-1]

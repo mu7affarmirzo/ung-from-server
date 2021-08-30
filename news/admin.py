@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 
-from news.models import UngNewsModel, RatingData
+from news.models import *
 from modeltranslation.admin import TranslationAdmin
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
@@ -20,9 +20,23 @@ class NewsCustomAdmin(admin.ModelAdmin):
     list_display = ('news_title_uz', 'date_published', 'status', 'youth_stat')
     class Meta:
         verbose_name = "users"
+
+
 class NewsAdmin(NewsCustomAdmin, TranslationAdmin):
     pass
+
+
 admin.site.register(UngNewsModel, NewsAdmin)
 
 
+class ComplianceNewsCustomAdmin(admin.ModelAdmin):
+    list_display = ('news_title_uz', 'date_published')
+
+    # class Meta:
+    #     verbose_name = "users"
+
+
+class ComplianceNewsAdmin(ComplianceNewsCustomAdmin, TranslationAdmin):
+    pass
+admin.site.register(ComplNewsModel, ComplianceNewsAdmin)
 

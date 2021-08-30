@@ -1,0 +1,105 @@
+{
+  'toifa': "Ishga kirish (stajor)",
+  'shahar': "Toshkent",
+  Bosh o'rni': "Dizayner",
+  'Shaxsiy ma\'lumotlar':
+  {
+    'familiya': "Bohidjonov",
+    'ism': "Aziz",
+    'otasini ismi': "Alisher",
+    'oilaviy status': "bo'ydoq",
+    'tug\'ilgan sanasi': "1997.07.15",
+    'farzandlar soni': "5",
+    'manzil': "Toshkent",
+    'telefon': "998991234567",
+    'email': "asda@gmail.com"
+  },
+  'Ma\'lumotingiz': [
+    {
+      'O‘quv muassasasining to‘liq nomi': 'Inha',
+      'Fakultet': 'Inha',
+      'Mutaxassislik': 'Inha',
+      'O‘qish boshlangan sana': '02.07.2016',
+      'O‘qish tugagan sana': '02.07.2020'
+    },
+    {
+      'O‘quv muassasasining to‘liq nomi': 'Inha',
+      'Fakultet': 'Inha',
+      'Mutaxassislik': 'Inha',
+      'O‘qish boshlangan sana': '02.07.2016',
+      'O‘qish tugagan sana': '02.07.2020'
+    }
+  ],
+  'Qo‘shimcha ma’lumot (malaka oshirish, kurslar, boshqalar)': [
+    {
+      'O‘quv muassasasining to‘liq nomi': 'Inha',
+      'Mutaxassislik': 'Inha',
+      'O‘qish boshlangan sana': '02.07.2016',
+      'O‘qish tugagan sana': '02.07.2020'
+    },
+    {
+      'O‘quv muassasasining to‘liq nomi': 'Inha',
+      'Mutaxassislik': 'Inha',
+      'O‘qish boshlangan sana': '02.07.2016',
+      'O‘qish tugagan sana': '02.07.2020'
+    }
+  ],
+  'Xorijiy tillarni bilish': [
+    {
+      'Til': 'Ingliz tili',
+      'Yozuv': '5',
+      'Og‘zaki nutq': '5',
+      'O‘qish': '5'
+    },
+    {
+      'Til': 'Ingliz tili',
+      'Yozuv': '5',
+      'Og‘zaki nutq': '5',
+      'O‘qish': '5'
+    }
+  ],
+  'Komputerda ishlash ko‘nikmalari': [
+    {
+      'Dastur': 'Word',
+      'Bilim darajasi': 'Tajribali'
+
+    },
+    {
+      'Dastur': 'Word',
+      'Bilim darajasi': 'Tajribali'
+
+    }
+  ],
+  'Mehnat faoliyati': [
+    {
+      'Ish boshlanishi': 'Fevral 2018',
+      'Ish tugallanishi': 'Mart 2019',
+      'Tashkilot nomi': 'Anaconda',
+      'Lavozimi': 'Junior',
+      'Asosiy yutuqlar:': 'yutuq',
+      'Ishdan bo‘shash sababi': 'Sabab',
+      'Tavsiyalar': 'Tavsiya'
+
+    },
+    {
+      'Ish boshlanishi': 'Fevral 2018',
+      'Ish tugallanishi': 'Mart 2019',
+      'Tashkilot nomi': 'Anaconda',
+      'Lavozimi': 'Junior',
+      'Asosiy yutuqlar:': 'yutuq',
+      'Ishdan bo‘shash sababi': 'Sabab',
+      'Tavsiyalar': 'Tavsiya'
+
+    }
+  ],
+  'Qo‘shimcha ma’lumotlar': {
+
+    'Qachon ishga tusha olasiz': '13-Fevral 2018 ',
+    'Ish haqingiz kamida qancha bo‘lishi kerak': '15 mln so`m',
+    'Haydovchilik guvohnomangiz bormi': 'Ha',
+    'Toifasi': 'A',
+    'Mazkur anketada taqdim etgan ma’lumotlarim to‘liq va haqiqiy ekanligini tasdiqlayman': 'Tasdiqlayman',
+    'Bo‘sh lavozim haqida qayerdan bildingiz': 'Media',
+    'Tavsiyalar': 'Tavsiya'
+  }
+}

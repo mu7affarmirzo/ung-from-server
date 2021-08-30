@@ -1,18 +1,14 @@
 from django.urls import path
 from django.conf.urls import url, include
 from rest_framework.routers import DefaultRouter
-from news.views import (
-    api_detail_news_view, ApiNewsListView, status_detail_news_view,
-    SApiNewsListView,
-    YApiNewsListView,
-    RatingsListViewAPI,
-    search,
-    )
+from news.views import *
 
 app_name = 'news'
 
 
 urlpatterns = [
+    path('compliance/list', ComplianceApiNewsListView.as_view(), name='compliance-list'),
+    path('compliance/<slug>', complinace_news_detail, name='compliance-detailed'),
     path('<slug>/', api_detail_news_view, name='detail'),
     path('list', ApiNewsListView.as_view(), name='list'),
     path('search', search, name='search'),

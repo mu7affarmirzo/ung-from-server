@@ -53,11 +53,13 @@ class CApiTendersListView(ListAPIView):
         return Tender.objects.filter(company=slug)
     pagination_class = PageNumberPagination
 
+
 class ApiTenderByListView(ListAPIView):
     queryset = Tender.objects.all()
     serializer_class = TenderListSerializer
     pagination_class = PageNumberPagination
     filter_backends = (SearchFilter, OrderingFilter)
+
 
 class FileInfoListViewAPI(ListAPIView):
     queryset = FileTender.objects.all()
